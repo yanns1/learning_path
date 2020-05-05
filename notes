@@ -1,0 +1,43 @@
+
+
+
+setup auth via stores
+setup db
+font awesome
+
+header:
+    settings: modal comp, changing layout: img + form with selects, changing priority colors: form with color pickers
+
+main:
+    card comp (+place prop),
+        add item,
+        add section,
+        item comp: priority dropdown, fleche pour dragging
+        sorting and dragging
+
+    middle buttons,
+
+
+
+footer comp, made with love etc, ref to fontawesome license: https://fontawesome.com/license/free
+
+In db:
+    theme,
+    items in toLearn/...:
+        {
+            content: ,
+            category: , (?)
+            priority: ,
+            place: ,
+            section: , (default: '')
+        },
+
+
+styling: fix header and footer technique, backgrounds, alignment, spacings, text font, dark theme, transition for modals, hover effects, middle buttons transitions
+
+transitions: for modals, when change tab
+setup hosting netlify
+
+
+white: #d7d7d7
+black: #333

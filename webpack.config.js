@@ -2,8 +2,8 @@ const path = require('path'); // Node.js path module
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const sveltePreprocess = require('svelte-preprocess');
 
-// With configs for caching
 module.exports = {
     target: 'web', // default
     entry: './src/', // default
@@ -69,6 +69,9 @@ module.exports = {
                     {
                         loader: "svelte-loader",
                         options: {
+                            preprocess: sveltePreprocess({
+                                scss: true
+                            }),
                             emitCss: true,
                         }
                     }

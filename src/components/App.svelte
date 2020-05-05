@@ -1,11 +1,14 @@
 <script>
+  import Header from "./header/Header.svelte";
+  import Footer from "./footer/Footer.svelte";
 
+  let dark = false;
 </script>
 
 <style>
-  div {
-    color: red;
-  }
+
 </style>
 
-<div>Hello</div>
+<Header {dark} />
+<main />
+<Footer />
