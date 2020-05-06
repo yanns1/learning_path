@@ -4,11 +4,15 @@
   import themeIcon from "../../img/icons/theme_icon.svg";
   import accountIcon from "../../img/icons/account_icon.svg";
   import Navbar from "./Navbar.svelte";
+  import Dialog from "../shared/Dialog.svelte";
+  import LayoutForm from "./settings/LayoutForm.svelte";
+  import PrioritiesColorsForm from "./settings/PrioritiesColorsForm.svelte";
 
   export let dark = false;
-  let isLogged = false;
-  let activeTab = "Test";
+  let isLogged = true;
+
   let tabsColor = "#333";
+  let showSettingsDialog = false;
 
   const accountIconTab = {
     src: accountIcon,
@@ -20,9 +24,18 @@
   const navTabsIfLoggedOut = ["SignIn"];
 
   // Impure
-  const changeTab = e => {
-    activeTab = e.detail;
+  const handleTabChange = e => {
+    const activeTab = e.detail;
+    if (activeTab === "Settings") {
+      showSettingsDialog = true;
+    }
   };
+
+  const closeDialog = () => {
+    showSettingsDialog = false;
+  };
+
+  const hasDuplicates = arr => new Set(arr).size !== array.length;
 </script>
 
 <style lang="scss">
@@ -67,12 +80,18 @@
       alt="" />
     <Navbar
       tabs={isLogged ? navTabsIfLoggedIn : navTabsIfLoggedOut}
-      {activeTab}
       {tabsColor}
-      on:tabChange={changeTab} />
+      on:tabChange={handleTabChange} />
   </div>
   <div class="theme">
     <img src={themeIcon} alt="" />
   </div>
   <div class="intro">Keep track of your learning path !</div>
 </header>
+{#if showSettingsDialog}
+  <Dialog on:click={closeDialog}>
+    <h3>Settings</h3>
+    <LayoutForm />
+    <PrioritiesColorsForm />
+  </Dialog>
+{/if}

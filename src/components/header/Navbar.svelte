@@ -2,7 +2,6 @@
   import { createEventDispatcher } from "svelte";
 
   export let tabs = [];
-  export let activeTab = "";
   export let tabsColor = "#333";
 
   const dispatch = createEventDispatcher();
@@ -34,12 +33,11 @@
   {#each tabs as tab (tab)}
     {#if typeof tab === 'string'}
       <li on:click={() => dispatch('tabChange', tab)}>
-        <div class:active={tab === activeTab}>{tab}</div>
+        <div>{tab}</div>
       </li>
     {:else}
       <li on:click={() => dispatch('tabChange', tab)}>
         <img
-          class:active={tab === activeTab}
           src={tab.src ? tab.src : ''}
           alt={tab.alt ? tab.alt : ''}
           title={tab.title ? tab.title : ''}
