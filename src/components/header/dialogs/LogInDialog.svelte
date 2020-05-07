@@ -1,5 +1,6 @@
 <script>
   import { auth } from "../../../scripts/init_firebase.js";
+  import { userCred } from "../../../scripts/stores.js";
   import Dialog from "../../shared/Dialog.svelte";
 
   let message = {
@@ -7,19 +8,21 @@
     success: ""
   };
   // Impure
-  const signIn = e => {
+  const logIn = e => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
     auth
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
-        message.success = "Account successfully created !";
+        message.success = "Success !";
       })
       .catch(err => {
         message.success = err.message;
       });
+
+    console.log($userCred);
   };
 </script>
 
@@ -33,8 +36,8 @@
 </style>
 
 <Dialog on:click>
-  <h3>Sign In</h3>
-  <form on:submit|preventDefault={signIn}>
+  <h3>Log In</h3>
+  <form on:submit|preventDefault={logIn}>
     <label for="email">
       Email:
       <input id="email" type="email" />
@@ -43,7 +46,7 @@
       Password:
       <input id="password" type="password" />
     </label>
-    <button>Sign In</button>
+    <button>Log In</button>
   </form>
 
   {#if message.success}

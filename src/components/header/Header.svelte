@@ -7,13 +7,15 @@
   import SettingsDialog from "./dialogs/SettingsDialog.svelte";
   import AccountDialog from "./dialogs/AccountDialog.svelte";
   import SignInDialog from "./dialogs/SignInDialog.svelte";
+  import LogInDialog from "./dialogs/LogInDialog.svelte";
 
   export let dark = false;
 
-  let isLogged = true;
+  let isLogged = false;
   let showSettingsDialog = false;
   let showAccountDialog = false;
   let showSignInDialog = false;
+  let showLogInDialog = false;
 
   let tabsColor = "#333";
   const accountIconTab = {
@@ -23,7 +25,7 @@
     width: "1.5rem"
   };
   const navTabsIfLoggedIn = ["Logout", "Settings", accountIconTab];
-  const navTabsIfLoggedOut = ["SignIn"];
+  const navTabsIfLoggedOut = ["Log In", "Sign In"];
 
   // Impure
   const handleTabChange = e => {
@@ -32,10 +34,12 @@
       showSettingsDialog = true;
     } else if (activeTab === "Account infos") {
       showAccountDialog = true;
-    } else if (activeTab === "SignIn") {
+    } else if (activeTab === "Sign In") {
       showSignInDialog = true;
     } else if (activeTab === "Logout") {
       isLogged = false;
+    } else if (activeTab === "Log In") {
+      showLogInDialog = true;
     }
   };
 
@@ -44,6 +48,7 @@
     showSettingsDialog = false;
     showAccountDialog = false;
     showSignInDialog = false;
+    showLogInDialog = false;
   };
 </script>
 
@@ -105,4 +110,7 @@
 {/if}
 {#if showSignInDialog}
   <SignInDialog on:click={closeDialogs} />
+{/if}
+{#if showLogInDialog}
+  <LogInDialog on:click={closeDialogs} />
 {/if}
