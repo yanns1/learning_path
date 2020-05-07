@@ -1,4 +1,6 @@
 <script>
+  import { auth } from "../../scripts/init_firebase.js";
+  import { userCred } from "../../scripts/stores.js";
   import learningPathLogoWhite from "../../img/learning_path_logo_white.svg";
   import learningPathLogoBlack from "../../img/learning_path_logo_black.svg";
   import themeIcon from "../../img/icons/theme_icon.svg";
@@ -11,7 +13,6 @@
 
   export let dark = false;
 
-  let isLogged = false;
   let showSettingsDialog = false;
   let showAccountDialog = false;
   let showSignInDialog = false;
@@ -36,10 +37,12 @@
       showAccountDialog = true;
     } else if (activeTab === "Sign In") {
       showSignInDialog = true;
-    } else if (activeTab === "Logout") {
-      isLogged = false;
     } else if (activeTab === "Log In") {
       showLogInDialog = true;
+    } else if (activeTab === "Logout") {
+      auth.signOut().catch(err => {
+        console.error(`Error signing out: ${err}`);
+      });
     }
   };
 
@@ -93,7 +96,7 @@
       src={dark ? learningPathLogoWhite : learningPathLogoBlack}
       alt="Site logo" />
     <Navbar
-      tabs={isLogged ? navTabsIfLoggedIn : navTabsIfLoggedOut}
+      tabs={$userCred ? navTabsIfLoggedIn : navTabsIfLoggedOut}
       {tabsColor}
       on:tabChange={handleTabChange} />
   </div>
@@ -109,8 +112,8 @@
   <AccountDialog on:click={closeDialogs} />
 {/if}
 {#if showSignInDialog}
-  <SignInDialog on:click={closeDialogs} />
+  <SignInDialog on:click={closeDialogs} on:signedIn={closeDialogs} />
 {/if}
 {#if showLogInDialog}
-  <LogInDialog on:click={closeDialogs} />
+  <LogInDialog on:click={closeDialogs} on:loggedIn={closeDialogs} />
 {/if}

@@ -1,6 +1,7 @@
 <script>
-  import changeLayoutHint from "../../../img/change_layout.svg";
-  import { layout } from "../../../scripts/stores.js";
+  import changeLayoutSvg from "../../../img/change_layout.svg";
+  import { db } from "../../../scripts/init_firebase.js";
+  import { userCred, layout } from "../../../scripts/stores.js";
 
   let message = {
     error: "",
@@ -24,8 +25,18 @@
     if (hasDuplicates(newLayout)) {
       message.error = "You cannot select the same card multiple times !";
     } else {
-      layout.set(newLayout);
-      message.success = "Layout successfully updated !";
+      // Update in db
+      db.collection("users")
+        .doc($userCred.uid)
+        .update({
+          layout: newLayout
+        })
+        .then(() => {
+          message.success = "Layout successfully updated !";
+        })
+        .catch(err => {
+          message.error = `${err}`;
+        });
     }
   };
 </script>
@@ -43,7 +54,7 @@
 </style>
 
 <h4>Change the layout</h4>
-<img src={changeLayoutHint} alt="Layout indications" />
+<img src={changeLayoutSvg} alt="Layout indications" />
 <div class="hint">Hint: You cannot select a same card multiple times.</div>
 <form on:submit|preventDefault={changeLayout}>
   {#each $layout as card, i (i)}

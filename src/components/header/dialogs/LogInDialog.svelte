@@ -1,4 +1,5 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { auth } from "../../../scripts/init_firebase.js";
   import { userCred } from "../../../scripts/stores.js";
   import Dialog from "../../shared/Dialog.svelte";
@@ -7,6 +8,10 @@
     error: "",
     success: ""
   };
+
+  //   Pure
+  const dispatch = createEventDispatcher();
+
   // Impure
   const logIn = e => {
     const form = e.target;
@@ -15,14 +20,13 @@
 
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        message.success = "Success !";
+      .then(userCred => {
+        dispatch("loggedIn");
+        // message.success = "Success !";
       })
       .catch(err => {
         message.success = err.message;
       });
-
-    console.log($userCred);
   };
 </script>
 

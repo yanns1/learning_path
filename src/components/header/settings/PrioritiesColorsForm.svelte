@@ -1,5 +1,6 @@
 <script>
-  import { prioritiesColors } from "../../../scripts/stores.js";
+  import { db } from "../../../scripts/init_firebase.js";
+  import { userCred, prioritiesColors } from "../../../scripts/stores.js";
 
   let message = {
     error: "",
@@ -20,8 +21,19 @@
     const newColors = Array.from(form.elements)
       .filter(isInput)
       .map(getValue);
-    prioritiesColors.set(newColors);
-    message.success = "Priorities colors successfully updated !";
+
+    // Update in db
+    db.collection("users")
+      .doc($userCred.uid)
+      .update({
+        prioritiesColors: newColors
+      })
+      .then(() => {
+        message.success = "Priorities colors successfully updated !";
+      })
+      .catch(err => {
+        message.error = `${err}`;
+      });
   };
 </script>
 

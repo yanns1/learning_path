@@ -1,21 +1,44 @@
 <script>
-  import { auth } from "../../../scripts/init_firebase.js";
+  import { createEventDispatcher } from "svelte";
+  import { auth, db } from "../../../scripts/init_firebase.js";
   import Dialog from "../../shared/Dialog.svelte";
 
   let message = {
     error: "",
     success: ""
   };
+
+  //   Pure
+  const dispatch = createEventDispatcher();
+
   // Impure
   const signIn = e => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
+    // Create user account
     auth
       .createUserWithEmailAndPassword(email, password)
+      .then(userCred => {
+        // Initialize user doc in db
+        db.collection("users")
+          .doc(userCred.user.uid)
+          .set({
+            isDark: false,
+            layout: ["To Learn", "To Revisit", "Learned", "To Not Learn"],
+            prioritiesColors: ["#b00b0b", "#c47e0c", "#228708"],
+            items: {
+              "To Learn": [],
+              "To Revisit": [],
+              Learned: [],
+              "To Not Learn": []
+            }
+          });
+      })
       .then(() => {
-        message.success = "Account successfully created !";
+        dispatch("signedIn");
+        // message.success = "Account successfully created !";
       })
       .catch(err => {
         message.success = err.message;
