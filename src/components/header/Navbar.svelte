@@ -36,7 +36,7 @@
         <div>{tab}</div>
       </li>
     {:else}
-      <li on:click={() => dispatch('tabChange', tab)}>
+      <li on:click={() => dispatch('tabChange', tab.title)}>
         <img
           src={tab.src ? tab.src : ''}
           alt={tab.alt ? tab.alt : ''}

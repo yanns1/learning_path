@@ -4,16 +4,18 @@
   import themeIcon from "../../img/icons/theme_icon.svg";
   import accountIcon from "../../img/icons/account_icon.svg";
   import Navbar from "./Navbar.svelte";
-  import Dialog from "../shared/Dialog.svelte";
-  import LayoutForm from "./settings/LayoutForm.svelte";
-  import PrioritiesColorsForm from "./settings/PrioritiesColorsForm.svelte";
+  import SettingsDialog from "./dialogs/SettingsDialog.svelte";
+  import AccountDialog from "./dialogs/AccountDialog.svelte";
+  import SignInDialog from "./dialogs/SignInDialog.svelte";
 
   export let dark = false;
+
   let isLogged = true;
+  let showSettingsDialog = false;
+  let showAccountDialog = false;
+  let showSignInDialog = false;
 
   let tabsColor = "#333";
-  let showSettingsDialog = false;
-
   const accountIconTab = {
     src: accountIcon,
     alt: "Account icon",
@@ -28,11 +30,20 @@
     const activeTab = e.detail;
     if (activeTab === "Settings") {
       showSettingsDialog = true;
+    } else if (activeTab === "Account infos") {
+      showAccountDialog = true;
+    } else if (activeTab === "SignIn") {
+      showSignInDialog = true;
+    } else if (activeTab === "Logout") {
+      isLogged = false;
     }
   };
 
-  const closeDialog = () => {
+  const closeDialogs = () => {
+    // Don't try to understand which dialog to close, close all of them
     showSettingsDialog = false;
+    showAccountDialog = false;
+    showSignInDialog = false;
   };
 
   const hasDuplicates = arr => new Set(arr).size !== array.length;
@@ -89,9 +100,11 @@
   <div class="intro">Keep track of your learning path !</div>
 </header>
 {#if showSettingsDialog}
-  <Dialog on:click={closeDialog}>
-    <h3>Settings</h3>
-    <LayoutForm />
-    <PrioritiesColorsForm />
-  </Dialog>
+  <SettingsDialog on:click={closeDialogs} />
+{/if}
+{#if showAccountDialog}
+  <AccountDialog on:click={closeDialogs} />
+{/if}
+{#if showSignInDialog}
+  <SignInDialog on:click={closeDialogs} />
 {/if}
