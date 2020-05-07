@@ -45,8 +45,6 @@
     showAccountDialog = false;
     showSignInDialog = false;
   };
-
-  const hasDuplicates = arr => new Set(arr).size !== array.length;
 </script>
 
 <style lang="scss">
@@ -88,7 +86,7 @@
     <img
       class="site_logo"
       src={dark ? learningPathLogoWhite : learningPathLogoBlack}
-      alt="" />
+      alt="Site logo" />
     <Navbar
       tabs={isLogged ? navTabsIfLoggedIn : navTabsIfLoggedOut}
       {tabsColor}
