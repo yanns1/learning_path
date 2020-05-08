@@ -8,7 +8,7 @@
 
 </style>
 
-<Dialog on:click>
+<Dialog on:closedDialog>
   <h3>Settings</h3>
   <LayoutForm />
   <PrioritiesColorsForm />

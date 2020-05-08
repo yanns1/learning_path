@@ -106,14 +106,14 @@
   <div class="intro">Keep track of your learning path !</div>
 </header>
 {#if showSettingsDialog}
-  <SettingsDialog on:click={closeDialogs} />
+  <SettingsDialog on:closedDialog={closeDialogs} />
 {/if}
 {#if showAccountDialog}
-  <AccountDialog on:click={closeDialogs} />
+  <AccountDialog on:closedDialog={closeDialogs} />
 {/if}
 {#if showSignInDialog}
-  <SignInDialog on:click={closeDialogs} on:signedIn={closeDialogs} />
+  <SignInDialog on:closedDialog={closeDialogs} on:signedIn={closeDialogs} />
 {/if}
 {#if showLogInDialog}
-  <LogInDialog on:click={closeDialogs} on:loggedIn={closeDialogs} />
+  <LogInDialog on:closedDialog={closeDialogs} on:loggedIn={closeDialogs} />
 {/if}

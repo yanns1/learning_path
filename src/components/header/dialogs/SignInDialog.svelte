@@ -55,7 +55,7 @@
   }
 </style>
 
-<Dialog on:click>
+<Dialog on:closedDialog>
   <h3>Sign In</h3>
   <form on:submit|preventDefault={signIn}>
     <label for="email">

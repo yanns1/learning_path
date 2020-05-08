@@ -39,7 +39,7 @@
   }
 </style>
 
-<Dialog on:click>
+<Dialog on:closedDialog>
   <h3>Log In</h3>
   <form on:submit|preventDefault={logIn}>
     <label for="email">

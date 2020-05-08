@@ -6,6 +6,6 @@
 
 </style>
 
-<Dialog on:click>
+<Dialog on:closedDialog>
   <h3>Account</h3>
 </Dialog>

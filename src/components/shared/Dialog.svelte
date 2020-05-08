@@ -1,7 +1,20 @@
 <script>
-  // Infos: if slot is longer than max-height, the content goes over the limits
+  import { onMount, createEventDispatcher } from "svelte";
+
+  // Pure
+  const dispatch = createEventDispatcher();
 
   // Impure
+  onMount(() => {
+    const dispatchIfEsc = e => {
+      if (e.key === "Escape") {
+        dispatch("closedDialog");
+      }
+    };
+    window.addEventListener("keydown", dispatchIfEsc);
+
+    return () => window.removeEventListener("keydown", dispatchIfEsc);
+  });
 </script>
 
 <style lang="scss">
@@ -24,7 +37,8 @@
   }
 </style>
 
-<div class="overlay" on:click|self>
+<!-- Infos: if slot is longer than max-height, the content goes over the limits -->
+<div class="overlay" on:click|self={() => dispatch('closedDialog')}>
   <div class="dialog">
     <slot />
   </div>
