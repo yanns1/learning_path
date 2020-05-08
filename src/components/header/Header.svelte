@@ -45,14 +45,6 @@
       });
     }
   };
-
-  const closeDialogs = () => {
-    // Don't try to understand which dialog to close, close all of them
-    showSettingsDialog = false;
-    showAccountDialog = false;
-    showSignInDialog = false;
-    showLogInDialog = false;
-  };
 </script>
 
 <style lang="scss">
@@ -106,14 +98,14 @@
   <div class="intro">Keep track of your learning path !</div>
 </header>
 {#if showSettingsDialog}
-  <SettingsDialog on:closedDialog={closeDialogs} />
+  <SettingsDialog on:closedDialog={() => (showSettingsDialog = false)} />
 {/if}
 {#if showAccountDialog}
-  <AccountDialog on:closedDialog={closeDialogs} />
+  <AccountDialog on:closedDialog={() => (showAccountDialog = false)} />
 {/if}
 {#if showSignInDialog}
-  <SignInDialog on:closedDialog={closeDialogs} on:signedIn={closeDialogs} />
+  <SignInDialog on:closedDialog={() => (showSignInDialog = false)} />
 {/if}
 {#if showLogInDialog}
-  <LogInDialog on:closedDialog={closeDialogs} on:loggedIn={closeDialogs} />
+  <LogInDialog on:closedDialog={() => (showLogInDialog = false)} />
 {/if}

@@ -37,8 +37,7 @@
           });
       })
       .then(() => {
-        dispatch("signedIn");
-        // message.success = "Account successfully created !";
+        dispatch("closedDialog");
       })
       .catch(err => {
         message.success = err.message;
