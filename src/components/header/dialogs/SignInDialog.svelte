@@ -40,7 +40,7 @@
         dispatch("closedDialog");
       })
       .catch(err => {
-        message.success = err.message;
+        message.error = err.message;
       });
   };
 </script>
