@@ -1,5 +1,6 @@
 <script>
   import Header from "./header/Header.svelte";
+  import Main from "./main/Main.svelte";
   import Footer from "./footer/Footer.svelte";
 
   let dark = false;
@@ -10,5 +11,5 @@
 </style>
 
 <Header {dark} />
-<main />
+<Main />
 <Footer />
