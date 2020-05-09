@@ -4,11 +4,23 @@
   import { db } from "../../../scripts/init_firebase.js";
   import { userCred } from "../../../scripts/stores.js";
 
-  let message = {
+  let delAccountMess = {
     error: "",
     success: "",
     instructions: ""
   };
+  let updateAccountMess = {
+    email: {
+      error: "",
+      success: ""
+    },
+    pwd: {
+      error: "",
+      success: "",
+      instructions: ""
+    }
+  };
+  let email = $userCred.email;
 
   // Pure
   const dispatch = createEventDispatcher();
@@ -30,12 +42,52 @@
           dispatch("closedDialog");
         })
         .catch(err => {
-          message.error = `Your data has been deleted, but not your account yet. ${err}`;
+          delAccountMess.error = `Your data has been deleted, but not your account yet. ${err}`;
           if (err.code === "auth/requires-recent-login") {
             // See why: https://firebase.google.com/docs/auth/web/manage-users?authuser=0#delete_a_user
-            message.instructions =
+            delAccountMess.instructions =
               "First, close this dialog. Then, logout and login again. After that, you will be able to delete your account.";
           }
+        });
+    }
+  };
+
+  const changePwd = e => {
+    const form = e.target;
+    const pwd = form.pwd.value;
+    const confirmed_pwd = form.confirmed_pwd.value;
+
+    if (pwd === confirmed_pwd) {
+      $userCred
+        .updatePassword(pwd)
+        .then(() => {
+          updateAccountMess.pwd.success = "Password successfully updated !";
+        })
+        .catch(err => {
+          updateAccountMess.pwd.error = `${err}`;
+          if (err.code === "auth/requires-recent-login") {
+            updateAccountMess.pwd.instructions =
+              "First, close this dialog. Then, logout and login again. After that, you will be able to delete your account.";
+          }
+        });
+    } else {
+      updateAccountMess.pwd.error =
+        "Confirmed password is not the same as the new password !";
+    }
+  };
+
+  const changeEmail = e => {
+    const form = e.target;
+    const email = form.email.value;
+    if (email !== $userCred.email) {
+      $userCred
+        .updateEmail(email)
+        .then(() => {
+          updateAccountMess.email.success = "Email successfully updated !";
+        })
+        .catch(err => {
+          console.log(err.code);
+          updateAccountMess.email.error = `${err}`;
         });
     }
   };
@@ -60,11 +112,34 @@
 
 <Dialog on:closedDialog>
   <h3>Account</h3>
-  <div class="email">
-    <strong>Email: {$userCred.email}</strong>
-  </div>
+
+  <form on:submit|preventDefault={changeEmail}>
+    <label for="email">
+      Email:
+      <input id="email" type="email" bind:value={email} />
+    </label>
+    <div class="error">{updateAccountMess.email.error}</div>
+    <div class="success">{updateAccountMess.email.success}</div>
+    <button disabled={email === $userCred.email}>Change email</button>
+  </form>
+
+  <form on:submit|preventDefault={changePwd}>
+    <label for="pwd">
+      New password:
+      <input id="pwd" type="password" />
+    </label>
+    <label for="confirmed_pwd">
+      Confirm password:
+      <input id="confirmed_pwd" type="password" />
+    </label>
+    <div class="error">{updateAccountMess.pwd.error}</div>
+    <div class="success">{updateAccountMess.pwd.success}</div>
+    <div class="instructions">{updateAccountMess.pwd.instructions}</div>
+    <button>Change password</button>
+  </form>
+
   <button on:click|self={deleteAccount}>Delete account</button>
-  <div class="error">{message.error}</div>
-  <div class="success">{message.success}</div>
-  <div class="instructions">{message.instructions}</div>
+  <div class="error">{delAccountMess.error}</div>
+  <div class="success">{delAccountMess.success}</div>
+  <div class="instructions">{delAccountMess.instructions}</div>
 </Dialog>
