@@ -33,7 +33,7 @@
     max-width: 70vw;
     max-height: 80vh;
     margin: 10% auto;
-    background-color: #d7d7d7;
+    background-color: #fff;
   }
 </style>
 

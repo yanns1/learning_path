@@ -1,6 +1,6 @@
 <script>
   import plusIconSvg from "../../img/icons/plus_icon.svg";
-  import { layout } from "../../scripts/stores.js";
+  import { layout, items } from "../../scripts/stores.js";
   import Card from "./Card.svelte";
   import Item from "./item/Item.svelte";
 </script>
@@ -70,7 +70,9 @@
       <div class="add-section">
         <div class="text">Add section</div>
       </div>
-      <Item />
+      {#each $items[cardTitle] as item}
+        <Item content={item.content} priority={item.priority} />
+      {/each}
     </Card>
   {/each}
 </main>

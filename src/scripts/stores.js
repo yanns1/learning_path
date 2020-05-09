@@ -1,5 +1,5 @@
 import { db, auth } from './init_firebase.js';
-import { writable, readable } from 'svelte/store';
+import { readable, derived } from 'svelte/store';
 
 // Be sure to have userCred first because it's used for following stores
 const userCred = readable(null, set => {
@@ -7,22 +7,40 @@ const userCred = readable(null, set => {
     return () => unsubscribe()
 })
 
-const layout = writable(
-    ["To Learn", "To Revisit", "Learned", "To Not Learn"]
-)
-
-const prioritiesColors = readable(["#b00b0b", "#c47e0c", "#228708"], (set, $userCred) => {
+const layout = derived(userCred, ($userCred, set) => {
     if ($userCred) {
         const unsubscribe = db.collection("users").doc($userCred.uid)
             .onSnapshot(doc => {
-                console.log("Current data: ", doc.data().prioritiesColors);
-                set(doc.data().prioritiesColors)
-            }).catch(err => {
-                console.error(`Error listening to prioritiesColors in db: ${err}`)
+                set(doc.data().layout)
             })
         return () => unsubscribe()
     }
+}, ["To Learn", "To Revisit", "Learned", "To Not Learn"])
+
+const items = derived(userCred, ($userCred, set) => {
+    if ($userCred) {
+        const unsubscribe = db.collection("users").doc($userCred.uid)
+            .onSnapshot(doc => {
+                set(doc.data().items)
+            })
+        return () => unsubscribe()
+    }
+}, {
+    "To Learn": [],
+    "To Revisit": [],
+    Learned: [],
+    "To Not Learn": []
 })
 
+const prioritiesColors = derived(userCred, ($userCred, set) => {
+    if ($userCred) {
+        const unsubscribe = db.collection("users").doc($userCred.uid)
+            .onSnapshot(doc => {
+                set(doc.data().prioritiesColors)
+            })
+        return () => unsubscribe()
+    }
+}, ["#b00b0b", "#c47e0c", "#228708"])
 
-export { userCred, layout, prioritiesColors };
+
+export { userCred, layout, items, prioritiesColors };
