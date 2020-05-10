@@ -2,8 +2,18 @@
   import PriorityDropdown from "./PriorityDropdown.svelte";
   import { prioritiesColors } from "../../../scripts/stores.js";
 
-  export let content = "No content provided";
-  export let priority = 1;
+  // default values do not apply for rerenders.
+  // In fact it's more an "initial default value" than a default value
+  export let content;
+  export let priority;
+
+  // so workaround...
+  let updatedFallbackPriority = 3;
+  if (priority) {
+    updatedFallbackPriority = priority;
+  }
+  $: content = content || "";
+  $: priority = priority || updatedFallbackPriority;
 
   let showPriorityDropdown = false;
 

@@ -10,6 +10,9 @@
   // Pure
   const isInput = el => el.tagName === "INPUT";
   const getValue = el => el.value;
+  const hasDuplicates = arr => new Set(arr).size !== arr.length;
+  const areArraysEqual = (arr1, arr2) =>
+    JSON.stringify(arr1) === JSON.stringify(arr2);
 
   // Impure
   const changeColors = e => {
@@ -22,18 +25,24 @@
       .filter(isInput)
       .map(getValue);
 
-    // Update in db
-    db.collection("users")
-      .doc($userCred.uid)
-      .update({
-        prioritiesColors: newColors
-      })
-      .then(() => {
-        message.success = "Priorities colors successfully updated !";
-      })
-      .catch(err => {
-        message.error = `${err}`;
-      });
+    if (hasDuplicates(newColors)) {
+      message.error = "You can't use the same color for multiple priorities !";
+    } else {
+      if (!areArraysEqual($prioritiesColors, newColors)) {
+        // Update in db
+        db.collection("users")
+          .doc($userCred.uid)
+          .update({
+            prioritiesColors: newColors
+          })
+          .then(() => {
+            message.success = "Priorities colors successfully updated !";
+          })
+          .catch(err => {
+            message.error = `${err}`;
+          });
+      }
+    }
   };
 </script>
 

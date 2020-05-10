@@ -15,6 +15,10 @@
 
   // Impure
   const changeLayout = e => {
+    message = {
+      error: "",
+      success: ""
+    };
     const form = e.target;
     const newLayout = Array.from(form.elements)
       .filter(isSelect)
