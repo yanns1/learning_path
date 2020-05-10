@@ -1,8 +1,68 @@
 <script>
+  import { sortBy, compose, toLower, prop } from "ramda";
   import plusIconSvg from "../../img/icons/plus_icon.svg";
   import { layout, items } from "../../scripts/stores.js";
   import Card from "./Card.svelte";
   import Item from "./item/Item.svelte";
+
+  // Trouver un meilleur moyen de modéliser data
+  // docs à part pour items ?
+  const fakeItems = {
+    "To Learn": [
+      {
+        section: "test",
+        priority: 3
+      },
+      {
+        section: "",
+        priority: 2
+      },
+      {
+        section: "test",
+        priority: 1
+      }
+    ],
+    Learned: {
+      test: [
+        {
+          section: "test",
+          priority: 3
+        },
+        {
+          section: "test",
+          priority: 1
+        }
+      ]
+    },
+    "": [
+      {
+        section: "",
+        priority: 2
+      }
+    ]
+  };
+  // Pure
+  const sortBySection = sortBy(
+    compose(
+      toLower,
+      prop("section")
+    )
+  );
+  const sortByPriority = sortBy(prop("priority"));
+  const getValueOfEntry = entry => entry[1];
+  const b = Object.entries(fakeItems);
+  const a = Object.entries(fakeItems).map(entry => {
+    const newEntry = [...entry];
+
+    const newValueOfEntry = sortBySection(getValueOfEntry(newEntry));
+    console.log(newValueOfEntry);
+    const c = newValueOfEntry.map(item => item.section);
+
+    // newEntry[1] = newValueOfEntry;
+    return newEntry;
+  });
+  console.log(b);
+  console.log(a);
 </script>
 
 <style lang="scss">
