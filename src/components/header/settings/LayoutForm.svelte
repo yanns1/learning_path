@@ -7,6 +7,7 @@
     error: "",
     success: ""
   };
+
   // Pure
   const isSelect = el => el.tagName === "SELECT";
   const getValue = el => el.value;
@@ -14,14 +15,11 @@
 
   // Impure
   const changeLayout = e => {
-    message = {
-      error: "",
-      success: ""
-    };
     const form = e.target;
     const newLayout = Array.from(form.elements)
       .filter(isSelect)
       .map(getValue);
+
     if (hasDuplicates(newLayout)) {
       message.error = "You cannot select the same card multiple times !";
     } else {
@@ -57,11 +55,11 @@
 <img src={changeLayoutSvg} alt="Layout indications" />
 <div class="hint">Hint: You cannot select a same card multiple times.</div>
 <form on:submit|preventDefault={changeLayout}>
-  {#each $layout as card, i (i)}
-    <label for="place{i + 1}">
+  {#each $layout as card, i (Math.random())}
+    <label for={i + 1}>
       {i + 1}:
-      <select id="place{i + 1}">
-        {#each $layout as cardBis}
+      <select id={i + 1}>
+        {#each $layout as cardBis, i (Math.random())}
           <option value={cardBis} selected={card === cardBis}>{cardBis}</option>
         {/each}
       </select>
