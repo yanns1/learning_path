@@ -13,12 +13,16 @@ import {
 
 // ============================================================
 // Sorting db items
+
+// sortBySection :: [Object] -> [Object]
 const sortBySection = sortBy(
     compose(
         toLower,
         prop("section")
     )
 );
+
+// sortByPriority :: [Object] -> [Object]
 const sortByPriority = sortBy(prop("priority"));
 
 // const itemsFromDbExample = {
@@ -34,6 +38,8 @@ const sortByPriority = sortBy(prop("priority"));
 //     // ...
 //   ]
 // };
+
+// sortItemsOfEntry :: [String, [Object]] -> [String, [Object]]
 const sortItemsOfEntry = entry => {
     const newEntry = [...entry];
     const prevItems = newEntry[1];
@@ -51,6 +57,7 @@ const sortItemsOfEntry = entry => {
     return newEntry;
 };
 
+// sortItemsFromDb :: Object -> Object
 const sortItemsFromDb = compose(
     fromPairs,
     map(sortItemsOfEntry),
@@ -59,6 +66,8 @@ const sortItemsFromDb = compose(
 
 // ============================================================
 // Other utils
+
+// isFalsyArr :: [a] -> Boolean
 const isFalsyArr = arr => !(Array.isArray(arr) && arr.length);
 
 export { sortItemsFromDb, isFalsyArr }
