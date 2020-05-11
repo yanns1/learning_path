@@ -1,14 +1,28 @@
 <script>
   import plusIconSvg from "../../img/icons/plus_icon.svg";
-  import { sortItemsFromDb, isFalsyArr } from "../../scripts/utils.js";
+  import {
+    sortItemsFromDb,
+    isFalsyArr,
+    strToInt
+  } from "../../scripts/utils.js";
   import { layout, items } from "../../scripts/stores.js";
   import Card from "./Card.svelte";
   import Item from "./item/Item.svelte";
-  import AddItemDialog from "./dialogs/AddItemDialog.svelte";
+  import ItemDialog from "./dialogs/ItemDialog.svelte";
 
   let showAddItemDialog = false;
   let addItemDialogProps = {
-    category: ""
+    type: "add",
+    category: "",
+    content: "",
+    priority: 3
+  };
+  let showChangeItemDialog = false;
+  let changeItemDialogProps = {
+    type: "change",
+    category: "",
+    content: "",
+    priority: 3
   };
   // Pure
   // console.log(sortItemsFromDb($items));
@@ -90,7 +104,15 @@
         <div>No items yet.</div>
       {:else}
         {#each $items[cardTitle] as item}
-          <Item content={item.content} priority={item.priority} />
+          <Item
+            content={item.content}
+            priority={strToInt(item.priority)}
+            on:click={() => {
+              showChangeItemDialog = true;
+              changeItemDialogProps.category = cardTitle;
+              changeItemDialogProps.content = item.content;
+              changeItemDialogProps.priority = strToInt(item.priority);
+            }} />
         {/each}
       {/if}
     </Card>
@@ -98,7 +120,12 @@
 </main>
 <!-- has to be outside </main> because overlay of dialog needs to have the body has parent -->
 {#if showAddItemDialog}
-  <AddItemDialog
+  <ItemDialog
     {...addItemDialogProps}
     on:closedDialog={() => (showAddItemDialog = false)} />
+{/if}
+{#if showChangeItemDialog}
+  <ItemDialog
+    {...changeItemDialogProps}
+    on:closedDialog={() => (showChangeItemDialog = false)} />
 {/if}

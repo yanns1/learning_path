@@ -25,6 +25,7 @@
 
 <style lang="scss">
   .item {
+    cursor: pointer;
     display: inline-block;
     border: 1px solid var(--color);
     border-radius: 4px;
@@ -32,6 +33,7 @@
     & .content {
       display: inline-block;
       color: var(--color);
+      // give it a padding to ensure that the click will be catched
     }
 
     & .caret-icon {
@@ -48,7 +50,7 @@
 </style>
 
 <div class="item" style="--color: {$prioritiesColors[priority - 1]}">
-  <div class="content">{content}</div>
+  <div class="content" on:click|self>{content}</div>
   <svg
     on:click={togglePriorityDropdown}
     class="caret-icon"

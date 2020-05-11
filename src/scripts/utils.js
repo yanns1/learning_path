@@ -70,4 +70,6 @@ const sortItemsFromDb = compose(
 // isFalsyArr :: [a] -> Boolean
 const isFalsyArr = arr => !(Array.isArray(arr) && arr.length);
 
-export { sortItemsFromDb, isFalsyArr }
+const strToInt = str => parseInt(str, 10);
+
+export { sortItemsFromDb, isFalsyArr, strToInt }
