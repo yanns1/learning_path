@@ -11,6 +11,8 @@ import {
     map
 } from "ramda";
 
+// ============================================================
+// Sorting db items
 const sortBySection = sortBy(
     compose(
         toLower,
@@ -55,4 +57,8 @@ const sortItemsFromDb = compose(
     toPairs
 );
 
-export { sortItemsFromDb }
+// ============================================================
+// Other utils
+const isFalsyArr = arr => !(Array.isArray(arr) && arr.length);
+
+export { sortItemsFromDb, isFalsyArr }
