@@ -97,6 +97,7 @@
   </div>
   <div class="intro">Keep track of your learning path !</div>
 </header>
+<!-- has to be outside </main> because overlay of dialog needs to have the body has parent -->
 {#if showSettingsDialog}
   <SettingsDialog on:closedDialog={() => (showSettingsDialog = false)} />
 {/if}

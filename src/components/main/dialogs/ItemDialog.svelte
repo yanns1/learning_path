@@ -1,13 +1,16 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { firebase, db } from "../../../scripts/init_firebase.js";
+  import { strToInt } from "../../../scripts/utils.js";
   import { userCred } from "../../../scripts/stores.js";
   import Dialog from "../../shared/Dialog.svelte";
 
+  export let type;
   export let category;
-  let content = "";
+  export let content = "";
+  export let priority = 3;
+
   let section = "";
-  let priority = 3;
   const categories = ["To Learn", "To Revisit", "Learned", "To Not Learn"];
   let error = "";
 
@@ -20,7 +23,7 @@
     const category = form.category.value;
     const content = form.content.value;
     const section = form.section.value;
-    const priority = form.priority.value;
+    const priority = strToInt(form.priority.value);
 
     const item = { category, content, section, priority };
     const fieldToUpdate = `items.${category}`;
@@ -38,6 +41,14 @@
         error = `The item has not been added. ${err}`;
       });
   };
+
+  const changeItem = e => {
+    console.log("change item");
+  };
+
+  const deleteItem = e => {
+    console.log("delete item");
+  };
 </script>
 
 <style lang="scss">
@@ -47,8 +58,8 @@
 </style>
 
 <Dialog on:closedDialog>
-  <h3>Add Item</h3>
-  <form on:submit|preventDefault={addItem}>
+  <h3>{type === 'add' ? 'Add Item' : 'Change Item'}</h3>
+  <form on:submit|preventDefault={type === 'add' ? addItem : changeItem}>
     <label for="category">
       Category:
       <select name="category" id="category" bind:value={category}>
@@ -73,10 +84,13 @@
         <option value={3}>3</option>
       </select>
     </label>
-    <button>Add item</button>
-
+    <button>{type === 'add' ? 'Add item' : 'Change item'}</button>
+    {#if error}
+      <div class="error">{error}</div>
+    {/if}
   </form>
-  {#if error}
-    <div class="error">{error}</div>
+
+  {#if type === 'change'}
+    <button on:click={deleteItem}>Delete item</button>
   {/if}
 </Dialog>

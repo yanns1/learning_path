@@ -25,6 +25,7 @@
 
 <style lang="scss">
   .item {
+    cursor: pointer;
     display: inline-block;
     border: 1px solid var(--color);
     border-radius: 4px;
@@ -47,7 +48,7 @@
   }
 </style>
 
-<div class="item" style="--color: {$prioritiesColors[priority - 1]}">
+<div class="item" style="--color: {$prioritiesColors[priority - 1]}" on:click>
   <div class="content">{content}</div>
   <svg
     on:click={togglePriorityDropdown}
