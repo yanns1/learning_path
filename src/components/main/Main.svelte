@@ -45,48 +45,6 @@
     display: flex;
     align-items: center;
   }
-
-  .add-section {
-    $color: red;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0.7;
-
-    .text {
-      color: $color;
-      margin: 0 0.5rem;
-    }
-
-    &:before {
-      content: "";
-      display: block;
-      background-color: $color;
-      height: 1px;
-      flex: 1 1 auto;
-      opacity: 0.5;
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-    &:after {
-      content: "";
-      display: block;
-      background-color: $color;
-      height: 1px;
-      flex: 1 1 auto;
-      opacity: 0.5;
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-  }
 </style>
 
 <main>
@@ -97,9 +55,6 @@
       <div class="add-item" on:click={() => triggerItemAdd(cardTitle)}>
         <img class="plus-icon" src={plusIconSvg} alt="Plus icon" />
         <div class="text">Add item</div>
-      </div>
-      <div class="add-section">
-        <div class="text">Add section</div>
       </div>
       {#if isFalsyArr($items[cardTitle])}
         <div>No items yet.</div>

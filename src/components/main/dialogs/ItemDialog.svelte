@@ -9,7 +9,6 @@
   export let type;
   export let category;
   export let content = "";
-  export let section = "";
   export let priority = 3;
   export let itemToChange;
 
@@ -24,10 +23,9 @@
     const form = e.target;
     const category = form.category.value;
     const content = form.content.value;
-    const section = form.section.value;
     const priority = strToInt(form.priority.value);
 
-    const item = { category, content, section, priority };
+    const item = { category, content, priority };
     const fieldToUpdate = `items.${category}`;
 
     // Push item to db
@@ -49,7 +47,6 @@
     const newItem = {
       category: form.category.value,
       content: form.content.value,
-      section: form.section.value,
       priority: strToInt(form.priority.value)
     };
     const userDocRef = db.collection("users").doc($userCred.uid);
@@ -82,7 +79,7 @@
 
   const deleteItem = e => {
     // based on global variables, is there a better way ?
-    const item = { category, content, section, priority };
+    const item = { category, content, priority };
     const fieldToUpdate = `items.${category}`;
 
     // delete in db
@@ -133,10 +130,6 @@
     <label for="content">
       Content:
       <input id="content" type="text" bind:value={content} required />
-    </label>
-    <label for="section">
-      Section:
-      <input id="section" type="text" bind:value={section} />
     </label>
     <label for="priority">
       Priority:
