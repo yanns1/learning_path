@@ -11,22 +11,28 @@
   import ItemDialog from "./dialogs/ItemDialog.svelte";
 
   let showAddItemDialog = false;
-  let addItemDialogProps = {
-    type: "add",
-    category: "",
-    content: "",
-    priority: 3
-  };
+  let addItemDialogProps = {};
   let showChangeItemDialog = false;
-  let changeItemDialogProps = {
-    type: "change",
-    category: "",
-    content: "",
-    priority: 3
-  };
+  let changeItemDialogProps = {};
   // Pure
   // console.log(sortItemsFromDb($items));
   // Impure
+  const triggerItemChange = item => {
+    showChangeItemDialog = true;
+    changeItemDialogProps = {
+      type: "change",
+      ...item,
+      itemToChange: item
+    };
+  };
+
+  const triggerItemAdd = category => {
+    showAddItemDialog = true;
+    addItemDialogProps = {
+      type: "add",
+      category
+    };
+  };
 </script>
 
 <style lang="scss">
@@ -88,12 +94,7 @@
   {#each $layout as cardTitle}
     <Card>
       <h3>{cardTitle}</h3>
-      <div
-        class="add-item"
-        on:click={() => {
-          showAddItemDialog = true;
-          addItemDialogProps.category = cardTitle;
-        }}>
+      <div class="add-item" on:click={() => triggerItemAdd(cardTitle)}>
         <img class="plus-icon" src={plusIconSvg} alt="Plus icon" />
         <div class="text">Add item</div>
       </div>
@@ -107,12 +108,7 @@
           <Item
             content={item.content}
             priority={strToInt(item.priority)}
-            on:click={() => {
-              showChangeItemDialog = true;
-              changeItemDialogProps.category = cardTitle;
-              changeItemDialogProps.content = item.content;
-              changeItemDialogProps.priority = strToInt(item.priority);
-            }} />
+            on:click={() => triggerItemChange(item)} />
         {/each}
       {/if}
     </Card>

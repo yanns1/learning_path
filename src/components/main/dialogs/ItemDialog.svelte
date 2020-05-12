@@ -9,9 +9,10 @@
   export let type;
   export let category;
   export let content = "";
+  export let section = "";
   export let priority = 3;
+  export let itemToChange;
 
-  let section = "";
   const categories = ["To Learn", "To Revisit", "Learned", "To Not Learn"];
   let error = "";
 
@@ -43,7 +44,41 @@
       });
   };
 
-  const changeItem = e => {};
+  const changeItem = e => {
+    const form = e.target;
+    const newItem = {
+      category: form.category.value,
+      content: form.content.value,
+      section: form.section.value,
+      priority: strToInt(form.priority.value)
+    };
+    const userDocRef = db.collection("users").doc($userCred.uid);
+
+    db.runTransaction(transaction => {
+      return transaction.get(userDocRef).then(userDoc => {
+        if (userDoc.exists) {
+          const fieldWhereRemoving = `items.${itemToChange.category}`;
+          transaction.update(userDocRef, {
+            [fieldWhereRemoving]: firebase.firestore.FieldValue.arrayRemove(
+              itemToChange
+            )
+          });
+          const fieldWhereAdding = `items.${newItem.category}`;
+          transaction.update(userDocRef, {
+            [fieldWhereAdding]: firebase.firestore.FieldValue.arrayUnion(
+              newItem
+            )
+          });
+        }
+      });
+    })
+      .then(() => {
+        dispatch("closedDialog");
+      })
+      .catch(err => {
+        error = `The item has not been changed. ${err}`;
+      });
+  };
 
   const deleteItem = e => {
     // based on global variables, is there a better way ?
