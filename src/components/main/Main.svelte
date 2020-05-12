@@ -14,8 +14,9 @@
   let addItemDialogProps = {};
   let showChangeItemDialog = false;
   let changeItemDialogProps = {};
+
   // Pure
-  // console.log(sortItemsFromDb($items));
+
   // Impure
   const triggerItemChange = item => {
     showChangeItemDialog = true;
@@ -59,7 +60,7 @@
       {#if isFalsyArr($items[cardTitle])}
         <div>No items yet.</div>
       {:else}
-        {#each $items[cardTitle] as item}
+        {#each sortItemsFromDb($items)[cardTitle] as item}
           <Item
             content={item.content}
             priority={strToInt(item.priority)}

@@ -1,11 +1,7 @@
 import {
     sortBy,
     compose,
-    toLower,
     prop,
-    unnest,
-    eqProps,
-    groupWith,
     toPairs,
     fromPairs,
     map
@@ -14,28 +10,20 @@ import {
 // ============================================================
 // Sorting db items
 
-// sortBySection :: [Object] -> [Object]
-const sortBySection = sortBy(
-    compose(
-        toLower,
-        prop("section")
-    )
-);
-
 // sortByPriority :: [Object] -> [Object]
 const sortByPriority = sortBy(prop("priority"));
 
 // const itemsFromDbExample = {
 //   "To Learn": [
 //     {
-//       section: "test",
 //       priority: 3
+//       ...
 //     },
 //     {
-//       section: "",
-//       priority: 2
+//       priority: 2,
+//       ...
 //     }
-//     // ...
+//     ...
 //   ]
 // };
 
@@ -43,16 +31,7 @@ const sortByPriority = sortBy(prop("priority"));
 const sortItemsOfEntry = entry => {
     const newEntry = [...entry];
     const prevItems = newEntry[1];
-    const groupIntoSubArrBySection = compose(
-        groupWith(eqProps("section")),
-        sortBySection
-    );
-    const sortItems = compose(
-        unnest,
-        map(sortByPriority),
-        groupIntoSubArrBySection
-    );
-    newEntry[1] = sortItems(prevItems);
+    newEntry[1] = sortByPriority(prevItems);
 
     return newEntry;
 };
