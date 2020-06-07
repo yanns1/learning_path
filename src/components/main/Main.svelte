@@ -37,18 +37,32 @@
 </script>
 
 <style lang="scss">
-  .cards-container {
-    margin: 0 15%;
+  h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 
-  .plus-icon {
-    width: 0.5rem;
+  .cards-container {
+    margin: 0 15%;
   }
 
   .add-item {
     cursor: pointer;
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    margin: 1rem 0;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+    }
+    & .plus-icon {
+      width: 0.5rem;
+      padding: 0.1rem;
+    }
+    & .text {
+      padding: 0 0.2rem;
+    }
   }
 </style>
 

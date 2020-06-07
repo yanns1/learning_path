@@ -21,13 +21,20 @@
   .item {
     cursor: pointer;
     display: inline-block;
+    color: var(--color);
     border: 1px solid var(--color);
     border-radius: 4px;
+    margin: 0.5rem;
 
+    &:hover {
+      color: #fff;
+      box-shadow: inset 0 0 0 2rem var(--color);
+      // to make it a bit less projecting
+      opacity: 0.95;
+    }
     & .content {
       display: inline-block;
-      color: var(--color);
-      // give it a padding to ensure that the click will be catched
+      padding: 0.3rem;
     }
   }
 </style>
