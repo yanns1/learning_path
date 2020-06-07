@@ -28,7 +28,7 @@ const sortByPriority = sortBy(prop("priority"));
 // };
 
 // sortItemsOfEntry :: [String, [Object]] -> [String, [Object]]
-const sortItemsOfEntry = entry => {
+const sortItemsOfEntry = (entry) => {
     const newEntry = [...entry];
     const prevItems = newEntry[1];
     newEntry[1] = sortByPriority(prevItems);
@@ -37,7 +37,7 @@ const sortItemsOfEntry = entry => {
 };
 
 // sortItemsFromDb :: Object -> Object
-const sortItemsFromDb = compose(
+export const sortItemsFromDb = compose(
     fromPairs,
     map(sortItemsOfEntry),
     toPairs
@@ -47,8 +47,6 @@ const sortItemsFromDb = compose(
 // Other utils
 
 // isFalsyArr :: [a] -> Boolean
-const isFalsyArr = arr => !(Array.isArray(arr) && arr.length);
+export const isFalsyArr = (arr) => !(Array.isArray(arr) && arr.length);
 
-const strToInt = str => parseInt(str, 10);
-
-export { sortItemsFromDb, isFalsyArr, strToInt }
+export const strToInt = (s) => parseInt(s, 10);
