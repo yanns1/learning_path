@@ -1,11 +1,20 @@
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url(../fonts/Raleway-Regular.woff) format("woff"),
+       url(../fonts/Raleway-Regular.woff2) format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Astuce pour fixed header and footer */
 body {
-background-color: #d7d7d7;
+  font-family: Raleway-Regular, sans-serif;
+  background-color: #d7d7d7;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
 }
 
 main {
-    flex: 1;
+  flex: 1;
 }

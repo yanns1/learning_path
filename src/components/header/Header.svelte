@@ -50,6 +50,8 @@
 <style lang="scss">
   header {
     padding: 1rem 2rem;
+    background-image: url(../../img/wave.svg);
+    background-size: cover;
   }
   .subheader {
     padding: 1rem 0;

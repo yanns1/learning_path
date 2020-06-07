@@ -44,7 +44,7 @@ module.exports = {
             },
 
             {
-                test: /\.(png|svg|jpg|gif|ogg|mp3|wav)$/,
+                test: /\.(png|svg|jpg|gif|mp3|woff|woff2)$/,
                 exclude: /node_modules/,
                 use: [
                     {
