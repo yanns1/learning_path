@@ -37,6 +37,10 @@
 </script>
 
 <style lang="scss">
+  .cards-container {
+    margin: 0 15%;
+  }
+
   .plus-icon {
     width: 0.5rem;
   }
@@ -49,26 +53,27 @@
 </style>
 
 <main>
-
-  {#each $layout as cardTitle}
-    <Card>
-      <h3>{cardTitle}</h3>
-      <div class="add-item" on:click={() => triggerItemAdd(cardTitle)}>
-        <img class="plus-icon" src={plusIconSvg} alt="Plus icon" />
-        <div class="text">Add item</div>
-      </div>
-      {#if isFalsyArr($items[cardTitle])}
-        <div>No items yet.</div>
-      {:else}
-        {#each sortItemsFromDb($items)[cardTitle] as item}
-          <Item
-            content={item.content}
-            priority={strToInt(item.priority)}
-            on:click={() => triggerItemChange(item)} />
-        {/each}
-      {/if}
-    </Card>
-  {/each}
+  <div class="cards-container">
+    {#each $layout as cardTitle}
+      <Card>
+        <h3>{cardTitle}</h3>
+        <div class="add-item" on:click={() => triggerItemAdd(cardTitle)}>
+          <img class="plus-icon" src={plusIconSvg} alt="Plus icon" />
+          <div class="text">Add item</div>
+        </div>
+        {#if isFalsyArr($items[cardTitle])}
+          <div>No items yet.</div>
+        {:else}
+          {#each sortItemsFromDb($items)[cardTitle] as item}
+            <Item
+              content={item.content}
+              priority={strToInt(item.priority)}
+              on:click={() => triggerItemChange(item)} />
+          {/each}
+        {/if}
+      </Card>
+    {/each}
+  </div>
 </main>
 <!-- has to be outside </main> because overlay of dialog needs to have the body has parent -->
 {#if showAddItemDialog}
