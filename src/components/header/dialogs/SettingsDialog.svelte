@@ -1,7 +1,7 @@
 <script>
   import Dialog from "../../shared/Dialog.svelte";
   import LayoutForm from "../settings/LayoutForm.svelte";
-  import PrioritiesColorsForm from "../settings/PrioritiesColorsForm.svelte";
+  import ColorsForm from "../settings/ColorsForm.svelte";
 </script>
 
 <style lang="scss">
@@ -11,5 +11,5 @@
 <Dialog on:closedDialog>
   <h3>Settings</h3>
   <LayoutForm />
-  <PrioritiesColorsForm />
+  <ColorsForm />
 </Dialog>
