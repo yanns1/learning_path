@@ -21,6 +21,8 @@
     }
   };
   let email = $userCred.email;
+  let pwd = "";
+  let confirmed_pwd = "";
 
   // Pure
   const dispatch = createEventDispatcher();
@@ -126,16 +128,18 @@
   <form on:submit|preventDefault={changePwd}>
     <label for="pwd">
       New password:
-      <input id="pwd" type="password" />
+      <input id="pwd" type="password" bind:value={pwd} />
     </label>
     <label for="confirmed_pwd">
       Confirm password:
-      <input id="confirmed_pwd" type="password" />
+      <input id="confirmed_pwd" type="password" bind:value={confirmed_pwd} />
     </label>
     <div class="error">{updateAccountMess.pwd.error}</div>
     <div class="success">{updateAccountMess.pwd.success}</div>
     <div class="instructions">{updateAccountMess.pwd.instructions}</div>
-    <button>Change password</button>
+    <button disabled={pwd === '' || pwd !== confirmed_pwd}>
+      Change password
+    </button>
   </form>
 
   <button on:click|self={deleteAccount}>Delete account</button>
