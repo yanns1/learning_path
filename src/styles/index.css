@@ -1,15 +1,21 @@
 @font-face {
-  font-family: "Raleway-Regular";
-  src: url(../fonts/Raleway-Regular.woff) format("woff"),
-       url(../fonts/Raleway-Regular.woff2) format("woff2");
+  font-family: "Montserrat-Regular";
+  src: url(../fonts/Montserrat-Regular.woff) format("woff"),
+       url(../fonts/Montserrat-Regular.woff2) format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
+:root {
+  --primary-color: #0400AF;
+  --secondary-color: #767676;
+}
+
+
 /* Astuce pour fixed header and footer */
 body {
-  font-family: Raleway-Regular, sans-serif;
-  background-color: #d7d7d7;
+  font-family: Montserrat-Regular, sans-serif;
+  background-color: #F2F2F2;
   min-height: 100vh;
   display: flex;
   flex-flow: column;
@@ -17,4 +23,11 @@ body {
 
 main {
   flex: 1;
+}
+
+
+@media (min-width: 750px) {
+  :root {
+    font-size: 20px;
+  }
 }

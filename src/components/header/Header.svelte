@@ -1,8 +1,7 @@
 <script>
   import { auth } from "../../scripts/init_firebase.js";
   import { userCred } from "../../scripts/stores.js";
-  import learningPathLogoWhite from "../../img/learning_path_logo_white.svg";
-  import learningPathLogoBlack from "../../img/learning_path_logo_black.svg";
+  import logo from "../../img/logo.svg";
   import themeIcon from "../../img/icons/theme_icon.svg";
   import accountIcon from "../../img/icons/account_icon.svg";
   import Navbar from "./Navbar.svelte";
@@ -22,11 +21,9 @@
   const accountIconTab = {
     src: accountIcon,
     alt: "Account icon",
-    title: "Account infos",
-    width: "1.5rem"
+    title: "Account infos"
   };
-  const navTabsIfLoggedIn = ["Logout", "Settings", accountIconTab];
-  const navTabsIfLoggedOut = ["Log In", "Sign In"];
+  const navTabs = ["Logout", "Settings", accountIconTab];
 
   // Impure
   const handleTabChange = e => {
@@ -49,19 +46,16 @@
 
 <style lang="scss">
   header {
-    padding: 1rem 2rem;
-    background-image: url(../../img/wave.svg);
-    background-size: cover;
+    padding: 1rem;
   }
   .subheader {
-    padding: 1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .site_logo {
+  .logo {
     cursor: pointer;
-    width: 20%;
+    width: 7rem;
   }
   .theme {
     padding: 1rem 0;
@@ -80,25 +74,24 @@
   }
   .intro {
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: #333333;
+    margin: 1.5rem 0;
+    font-weight: 600;
   }
 </style>
 
 <header>
   <div class="subheader">
-    <img
-      class="site_logo"
-      src={dark ? learningPathLogoWhite : learningPathLogoBlack}
-      alt="Site logo" />
-    <Navbar
-      tabs={$userCred ? navTabsIfLoggedIn : navTabsIfLoggedOut}
-      {tabsColor}
-      on:tabChange={handleTabChange} />
+    <img class="logo" src={logo} alt="Site logo" />
+    {#if $userCred}
+      <Navbar tabs={navTabs} {tabsColor} on:tabChange={handleTabChange} />
+    {/if}
   </div>
-  <div class="theme">
-    <img src={themeIcon} alt="" />
-  </div>
+  {#if $userCred}
+    <div class="theme">
+      <img src={themeIcon} alt="" />
+    </div>
+  {/if}
   <div class="intro">Keep track of your learning path !</div>
 </header>
 <!-- has to be outside </main> because overlay of dialog needs to have the body has parent -->
