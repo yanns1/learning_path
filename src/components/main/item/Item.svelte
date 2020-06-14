@@ -39,6 +39,8 @@
   }
 </style>
 
-<div class="item" style="--color: {$prioritiesColors[priority - 1]}">
+<div
+  class="item"
+  style="--color: {priority === -1 ? 'black' : $prioritiesColors[priority - 1]}">
   <div class="content" on:click|self>{content}</div>
 </div>

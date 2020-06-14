@@ -81,7 +81,7 @@
           {#each sortItemsFromDb($items)[cardTitle] as item}
             <Item
               content={item.content}
-              priority={strToInt(item.priority)}
+              priority={cardTitle === 'Learned' || cardTitle === 'To Not Learn' ? -1 : strToInt(item.priority)}
               on:click={() => triggerItemChange(item)} />
           {/each}
         {/if}
