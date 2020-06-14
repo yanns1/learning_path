@@ -4,6 +4,8 @@
   import Footer from "./footer/Footer.svelte";
   import { userCred } from "../scripts/stores.js";
 
+  document.title = "Learning Path";
+
   let dark = false;
 </script>
 
