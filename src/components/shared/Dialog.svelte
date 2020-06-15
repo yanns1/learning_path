@@ -22,18 +22,17 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
   }
   .dialog {
-    padding: 2rem;
-    border-radius: 10px;
+    padding: 1.5rem;
+    border-radius: 16px;
     max-width: 70vw;
     max-height: 80vh;
-    margin: 10% auto;
     background-color: #fff;
   }
 </style>

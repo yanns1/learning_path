@@ -4,8 +4,9 @@
   import Footer from "./footer/Footer.svelte";
   import { userCred } from "../scripts/stores.js";
   import wave from "../img/wave.svg";
-  import SignInDialog from "./dialogs/SignInDialog.svelte";
+  import SignUpDialog from "./dialogs/SignUpDialog.svelte";
   import LogInDialog from "./dialogs/LogInDialog.svelte";
+  import Button from "./shared/Button.svelte";
 
   let dark = false;
   let showSignInDialog = false;
@@ -35,8 +36,8 @@
   .demo-text {
     text-align: center;
     color: var(--secondary-color);
-    font-weight: bold;
     font-size: 1.2rem;
+    font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
 
   .button-wrapper {
@@ -75,7 +76,7 @@
 </style>
 
 {#if showSignInDialog}
-  <SignInDialog on:closedDialog={() => (showSignInDialog = false)} />
+  <SignUpDialog on:closedDialog={() => (showSignInDialog = false)} />
 {/if}
 {#if showLogInDialog}
   <LogInDialog on:closedDialog={() => (showLogInDialog = false)} />
@@ -91,9 +92,9 @@
       Signup/Login to have access to all the features !
     </div>
     <div class="button-wrapper">
-      <button on:click={() => (showSignInDialog = true)}>Signup</button>
+      <Button on:click={() => (showSignInDialog = true)}>Signup</Button>
       <span>or</span>
-      <button on:click={() => (showLogInDialog = true)}>Login</button>
+      <Button on:click={() => (showLogInDialog = true)}>Login</Button>
     </div>
     <div class="demo-text">Quick demo</div>
     <!-- <video src={clip} /> -->
