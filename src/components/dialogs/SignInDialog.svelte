@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { auth, db } from "../../../scripts/init_firebase.js";
-  import Dialog from "../../shared/Dialog.svelte";
+  import { auth, db } from "../../scripts/init_firebase.js";
+  import Dialog from "../shared/Dialog.svelte";
 
   let message = {
     error: "",

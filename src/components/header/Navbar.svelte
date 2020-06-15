@@ -16,9 +16,6 @@
     list-style-type: none;
   }
   li {
-    // margin: 0 1rem;
-    // padding: 0.4rem;
-    // font-size: 1rem;
     cursor: pointer;
     color: var(--tabs-color);
     opacity: 0.7;

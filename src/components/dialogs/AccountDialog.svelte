@@ -1,8 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import Dialog from "../../shared/Dialog.svelte";
-  import { db } from "../../../scripts/init_firebase.js";
-  import { userCred } from "../../../scripts/stores.js";
+  import Dialog from "../shared/Dialog.svelte";
+  import { db } from "../../scripts/init_firebase.js";
+  import { userCred } from "../../scripts/stores.js";
 
   let delAccountMess = {
     error: "",

@@ -1,10 +1,10 @@
 <script>
-  import trashIconSvg from "../../../img/icons/trash_icon.svg";
+  import trashIconSvg from "../../img/icons/trash_icon.svg";
   import { createEventDispatcher } from "svelte";
-  import { firebase, db } from "../../../scripts/init_firebase.js";
-  import { strToInt } from "../../../scripts/utils.js";
-  import { userCred } from "../../../scripts/stores.js";
-  import Dialog from "../../shared/Dialog.svelte";
+  import { firebase, db } from "../../scripts/init_firebase.js";
+  import { strToInt } from "../../scripts/utils.js";
+  import { userCred } from "../../scripts/stores.js";
+  import Dialog from "../shared/Dialog.svelte";
 
   export let type;
   export let category;

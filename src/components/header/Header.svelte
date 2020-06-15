@@ -5,17 +5,13 @@
   import themeIcon from "../../img/icons/theme_icon.svg";
   import accountIcon from "../../img/icons/account_icon.svg";
   import Navbar from "./Navbar.svelte";
-  import SettingsDialog from "./dialogs/SettingsDialog.svelte";
-  import AccountDialog from "./dialogs/AccountDialog.svelte";
-  import SignInDialog from "./dialogs/SignInDialog.svelte";
-  import LogInDialog from "./dialogs/LogInDialog.svelte";
+  import SettingsDialog from "../dialogs/settings/SettingsDialog.svelte";
+  import AccountDialog from "../dialogs/AccountDialog.svelte";
 
   export let dark = false;
 
   let showSettingsDialog = false;
   let showAccountDialog = false;
-  let showSignInDialog = false;
-  let showLogInDialog = false;
 
   let tabsColor = "#333";
   const accountIconTab = {
@@ -28,18 +24,20 @@
   // Impure
   const handleTabChange = e => {
     const activeTab = e.detail;
-    if (activeTab === "Settings") {
-      showSettingsDialog = true;
-    } else if (activeTab === "Account infos") {
-      showAccountDialog = true;
-    } else if (activeTab === "Sign In") {
-      showSignInDialog = true;
-    } else if (activeTab === "Log In") {
-      showLogInDialog = true;
-    } else if (activeTab === "Logout") {
-      auth.signOut().catch(err => {
-        console.error(`Error signing out: ${err}`);
-      });
+    switch (activeTab) {
+      case "Settings":
+        showSettingsDialog = true;
+        break;
+      case "Account infos":
+        showAccountDialog = true;
+        break;
+      case "Logout":
+        auth.signOut().catch(err => {
+          console.error(`Error signing out: ${err}`);
+        });
+        break;
+      default:
+        break;
     }
   };
 </script>
@@ -100,10 +98,4 @@
 {/if}
 {#if showAccountDialog}
   <AccountDialog on:closedDialog={() => (showAccountDialog = false)} />
-{/if}
-{#if showSignInDialog}
-  <SignInDialog on:closedDialog={() => (showSignInDialog = false)} />
-{/if}
-{#if showLogInDialog}
-  <LogInDialog on:closedDialog={() => (showLogInDialog = false)} />
 {/if}

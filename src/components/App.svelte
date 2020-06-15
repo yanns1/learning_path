@@ -4,10 +4,14 @@
   import Footer from "./footer/Footer.svelte";
   import { userCred } from "../scripts/stores.js";
   import wave from "../img/wave.svg";
-
-  document.title = "Learning Path";
+  import SignInDialog from "./dialogs/SignInDialog.svelte";
+  import LogInDialog from "./dialogs/LogInDialog.svelte";
 
   let dark = false;
+  let showSignInDialog = false;
+  let showLogInDialog = false;
+
+  document.title = "Learning Path";
 </script>
 
 <style lang="scss">
@@ -70,6 +74,13 @@
   }
 </style>
 
+{#if showSignInDialog}
+  <SignInDialog on:closedDialog={() => (showSignInDialog = false)} />
+{/if}
+{#if showLogInDialog}
+  <LogInDialog on:closedDialog={() => (showLogInDialog = false)} />
+{/if}
+
 <img src={wave} alt="wave background on top of the page" />
 <Header {dark} />
 {#if $userCred}
@@ -80,9 +91,9 @@
       Signup/Login to have access to all the features !
     </div>
     <div class="button-wrapper">
-      <button>Signup</button>
+      <button on:click={() => (showSignInDialog = true)}>Signup</button>
       <span>or</span>
-      <button>Login</button>
+      <button on:click={() => (showLogInDialog = true)}>Login</button>
     </div>
     <div class="demo-text">Quick demo</div>
     <!-- <video src={clip} /> -->

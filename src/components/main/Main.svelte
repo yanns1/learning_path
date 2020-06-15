@@ -8,7 +8,7 @@
   import { layout, items } from "../../scripts/stores.js";
   import Card from "./Card.svelte";
   import Item from "./item/Item.svelte";
-  import ItemDialog from "./dialogs/ItemDialog.svelte";
+  import ItemDialog from "../dialogs/ItemDialog.svelte";
 
   let showAddItemDialog = false;
   let addItemDialogProps = {};
