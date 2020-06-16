@@ -39,12 +39,9 @@
 <style lang="scss">
   h3 {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-  }
-
-  .cards-container {
-    margin: 0 15%;
+    margin: 0.5rem;
   }
 
   .add-item {
@@ -62,6 +59,26 @@
     }
     & .text {
       padding: 0 0.2rem;
+    }
+  }
+
+  .cards-container:last-child {
+    // space for bottom-navbar in mobile view
+    margin-bottom: 7rem;
+  }
+
+  @media (min-width: 600px) {
+    .cards-container {
+      margin: 0 10%;
+    }
+    .cards-container:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .cards-container {
+      margin: 0 25%;
     }
   }
 </style>

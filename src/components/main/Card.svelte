@@ -1,17 +1,30 @@
 <script>
-
+  export let styles = "";
 </script>
 
 <style>
   .card {
     background: #fff;
-    padding: 1.25rem;
-    margin: 2rem;
-    border-radius: 6px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 1rem;
+    /* 3rem at the bottom instead of 1 because of margin collapsing */
+    margin: 1rem 1rem 3rem;
+    box-shadow: 10px 15px 30px #d6ddee;
+  }
+
+  @media (min-width: 600px) {
+    .card {
+      box-shadow: 20px 30px 30px #d6ddee;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .card {
+      margin: 3rem 1rem;
+    }
   }
 </style>
 
-<div class="card">
+<div class="card" style={styles}>
   <slot />
 </div>

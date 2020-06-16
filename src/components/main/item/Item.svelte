@@ -23,8 +23,9 @@
     display: inline-block;
     color: var(--color);
     border: 1px solid var(--color);
-    border-radius: 4px;
+    border-radius: 16px;
     margin: 0.5rem;
+    transition: all 150ms ease-out;
 
     &:hover {
       color: #fff;
@@ -34,7 +35,7 @@
     }
     & .content {
       display: inline-block;
-      padding: 0.3rem;
+      padding: 0.4rem 0.8rem;
     }
   }
 </style>

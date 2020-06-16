@@ -4,25 +4,29 @@
 
 <style lang="scss">
   footer {
-    font-size: 0.5rem;
-    min-height: 5vh;
-    padding: 1rem;
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-gap: 0.5rem;
-    background-color: #c4c4c4;
+    display: none;
   }
 
-  a {
-    display: inline;
-    color: var(--primary-color);
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+  @media (min-width: 600px) {
+    footer {
+      font-size: 0.7rem;
+      min-height: 5vh;
+      padding: 1rem 2.5rem;
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 0.5rem;
+      background-color: #c4c4c4;
     }
-  }
 
-  @media (min-width: 380px) {
+    a {
+      display: inline;
+      color: var(--primary-color);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .github-credit,
     .font-awesome-credit {
       justify-self: end;
