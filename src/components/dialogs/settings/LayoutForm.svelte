@@ -2,11 +2,17 @@
   import changeLayoutSvg from "../../../img/change_layout.svg";
   import { db } from "../../../scripts/init_firebase.js";
   import { userCred, layout } from "../../../scripts/stores.js";
+  import Button from "../../shared/Button.svelte";
 
   let message = {
     error: "",
     success: ""
   };
+  const buttonStyles = `
+    grid-column: 2 / span 1;
+    justify-self: end;
+    align-self: center;
+  `;
 
   // Pure
   const isSelect = el => el.tagName === "SELECT";
@@ -25,7 +31,7 @@
       .map(getValue);
 
     if (hasDuplicates(newLayout)) {
-      message.error = "You cannot select the same card multiple times !";
+      message.error = "You can't select the same card multiple times !";
     } else {
       // Update in db
       db.collection("users")
@@ -44,20 +50,64 @@
 </script>
 
 <style lang="scss">
-  img {
-    width: 7rem;
+  h4 {
+    color: var(--secondary-color);
+    font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
+
+  img {
+    display: block;
+    width: 4rem;
+    margin: 1rem auto;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+    & > strong {
+      font-weight: bold;
+    }
+  }
+
+  form {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    row-gap: 0.5rem;
+  }
+
+  label {
+    font-weight: bold;
+
+    & > select {
+      margin: 0 0.3rem;
+      width: 70%;
+    }
+  }
+
+  .message {
+    width: 5rem;
+    font-size: 0.8rem;
+  }
+
   .error {
     color: red;
   }
+
   .success {
     color: green;
   }
 </style>
 
-<h4>Change the layout</h4>
+<h4>Layout</h4>
 <img src={changeLayoutSvg} alt="Layout indications" />
-<div class="hint">Hint: You cannot select a same card multiple times.</div>
+<div class="hint">
+  <strong>Hint:</strong>
+  You cannot select a same card multiple times.
+</div>
 <form on:submit|preventDefault={changeLayout}>
   {#each $layout as card, i (Math.random())}
     <label for={i + 1}>
@@ -69,10 +119,10 @@
       </select>
     </label>
   {/each}
-  <button>Apply</button>
   {#if message.success}
-    <div class="success">{message.success}</div>
+    <div class="message success">{message.success}</div>
   {:else if message.error}
-    <div class="error">{message.error}</div>
+    <div class="message error">{message.error}</div>
   {/if}
+  <Button styles={buttonStyles}>Apply</Button>
 </form>

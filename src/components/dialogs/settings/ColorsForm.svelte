@@ -1,11 +1,17 @@
 <script>
   import { db } from "../../../scripts/init_firebase.js";
   import { userCred, prioritiesColors } from "../../../scripts/stores.js";
+  import Button from "../../shared/Button.svelte";
 
   let message = {
     error: "",
     success: ""
   };
+  const buttonStyles = `
+    grid-column: 2 / span 1;
+    justify-self: end;
+    align-self: center;
+  `;
 
   // Pure
   const isInput = el => el.tagName === "INPUT";
@@ -36,7 +42,7 @@
             prioritiesColors: newColors
           })
           .then(() => {
-            message.success = "Priorities colors successfully updated !";
+            message.success = "Colors successfully updated !";
           })
           .catch(err => {
             message.error = `${err}`;
@@ -47,6 +53,33 @@
 </script>
 
 <style lang="scss">
+  h4 {
+    color: var(--secondary-color);
+    font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
+  }
+
+  form {
+    margin: 1rem auto;
+  }
+
+  label {
+    font-weight: bold;
+
+    & > input {
+      cursor: pointer;
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .message {
+    width: 5rem;
+    font-size: 0.8rem;
+  }
   .error {
     color: red;
   }
@@ -55,7 +88,7 @@
   }
 </style>
 
-<h4>Choose the priorities colors</h4>
+<h4>Colors</h4>
 <form on:submit|preventDefault={changeColors}>
   {#each $prioritiesColors as color, i (i)}
     <div class="color-picker">
@@ -69,10 +102,12 @@
       </label>
     </div>
   {/each}
-  <button>Apply</button>
-  {#if message.success}
-    <div class="success">{message.success}</div>
-  {:else if message.error}
-    <div class="error">{message.error}</div>
-  {/if}
+  <div class="wrapper">
+    {#if message.success}
+      <div class="message success">{message.success}</div>
+    {:else if message.error}
+      <div class="message error">{message.error}</div>
+    {/if}
+    <Button styles={buttonStyles}>Apply</Button>
+  </div>
 </form>
