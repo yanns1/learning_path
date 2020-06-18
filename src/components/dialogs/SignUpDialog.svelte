@@ -69,6 +69,9 @@
     font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
 
+  .message {
+    width: min-content;
+  }
   .error {
     color: red;
   }
@@ -98,10 +101,9 @@
     </label>
     <Button styles={buttonStyles}>Signup</Button>
   </form>
-
   {#if message.success}
-    <div class="success">{message.success}</div>
+    <div class="message success">{message.success}</div>
   {:else if message.error}
-    <div class="error">{message.error}</div>
+    <div class="message error">{message.error}</div>
   {/if}
 </Dialog>
