@@ -3,7 +3,18 @@
   import Dialog from "../shared/Dialog.svelte";
   import { db } from "../../scripts/init_firebase.js";
   import { userCred } from "../../scripts/stores.js";
+  import Button from "../shared/Button.svelte";
 
+  const applyButtonStyles = `
+    justify-self: end;
+  `;
+  const deleteButtonStyles = `
+    justify-self: start;
+    background-color: #9E0000;
+    &:hover, &:focus {
+      background-color: #C90101;
+    }
+  `;
   let delAccountMess = {
     error: "",
     success: "",
@@ -96,6 +107,24 @@
 </script>
 
 <style lang="scss">
+  h3 {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
+    margin-bottom: 1.8rem;
+  }
+
+  form {
+    display: grid;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    color: var(--secondary-color);
+    font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
+  }
+
   .error {
     color: red;
   }
@@ -112,38 +141,61 @@
   }
 </style>
 
+<!-- certainly simpler and shorter to do with error messages -->
 <Dialog on:closedDialog>
   <h3>Account</h3>
 
   <form on:submit|preventDefault={changeEmail}>
     <label for="email">
-      Email:
+      Email
       <input id="email" type="email" bind:value={email} />
     </label>
-    <div class="error">{updateAccountMess.email.error}</div>
-    <div class="success">{updateAccountMess.email.success}</div>
-    <button disabled={email === $userCred.email}>Change email</button>
+    <Button styles={applyButtonStyles} disabled={email === $userCred.email}>
+      Apply
+    </Button>
+    {#if updateAccountMess.email.error}
+      <div class="error">{updateAccountMess.email.error}</div>
+    {/if}
+    {#if updateAccountMess.email.success}
+      <div class="success">{updateAccountMess.email.success}</div>
+    {/if}
   </form>
 
   <form on:submit|preventDefault={changePwd}>
     <label for="pwd">
-      New password:
+      New password
       <input id="pwd" type="password" bind:value={pwd} />
     </label>
     <label for="confirmed_pwd">
-      Confirm password:
+      Confirm password
       <input id="confirmed_pwd" type="password" bind:value={confirmed_pwd} />
     </label>
-    <div class="error">{updateAccountMess.pwd.error}</div>
-    <div class="success">{updateAccountMess.pwd.success}</div>
-    <div class="instructions">{updateAccountMess.pwd.instructions}</div>
-    <button disabled={pwd === '' || pwd !== confirmed_pwd}>
-      Change password
-    </button>
+    <Button
+      styles={applyButtonStyles}
+      disabled={pwd === '' || pwd !== confirmed_pwd}>
+      Apply
+    </Button>
+    {#if updateAccountMess.pwd.error}
+      <div class="error">{updateAccountMess.pwd.error}</div>
+    {/if}
+    {#if updateAccountMess.pwd.success}
+      <div class="success">{updateAccountMess.pwd.success}</div>
+    {/if}
+    {#if updateAccountMess.pwd.instructions}
+      <div class="instructions">{updateAccountMess.pwd.instructions}</div>
+    {/if}
   </form>
 
-  <button on:click|self={deleteAccount}>Delete account</button>
-  <div class="error">{delAccountMess.error}</div>
-  <div class="success">{delAccountMess.success}</div>
-  <div class="instructions">{delAccountMess.instructions}</div>
+  <Button styles={deleteButtonStyles} on:click={deleteAccount}>
+    Delete account
+  </Button>
+  {#if delAccountMess.error}
+    <div class="error">{delAccountMess.error}</div>
+  {/if}
+  {#if delAccountMess.success}
+    <div class="success">{delAccountMess.success}</div>
+  {/if}
+  {#if delAccountMess.instructions}
+    <div class="instructions">{delAccountMess.instructions}</div>
+  {/if}
 </Dialog>

@@ -1,5 +1,6 @@
 <script>
   export let styles;
+  export let disabled = false;
 </script>
 
 <style lang="scss">
@@ -21,10 +22,10 @@
     transition: background-color 250ms ease-in-out, transform 150ms ease;
 
     &:hover {
-      background-color: #1226d6;
+      filter: brightness(1.3);
     }
     &:focus {
-      background-color: #1226d6;
+      filter: brightness(1.3);
       outline: none;
       box-shadow: 0 0 0 1px var(--secondary-color);
     }
@@ -34,6 +35,6 @@
   }
 </style>
 
-<button on:click|self style={styles}>
+<button on:click|self style={styles} {disabled}>
   <slot />
 </button>
