@@ -3,17 +3,18 @@
 
   export let tabs = [];
   export let view = "desktop";
+  export let tabsColor = "#000000";
+  export let mobileBg = "#F2F2F2";
 
   const dispatch = createEventDispatcher();
 </script>
 
 <style type="text/scss">
   ul {
-    z-index: 1000;
+    z-index: 900;
     position: fixed;
     bottom: 0;
     left: 0;
-    background: var(--secondary-color);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -21,7 +22,6 @@
     & > li {
       justify-self: center;
       padding: 0.5rem;
-      color: black;
       opacity: 1;
       display: flex;
       flex-flow: column;
@@ -45,7 +45,6 @@
 
       display: flex;
       justify-content: space-between;
-      // align-items: center;
 
       grid-area: navbar;
       align-self: center;
@@ -54,7 +53,6 @@
       & > li {
         display: inline-block;
         cursor: pointer;
-        color: black;
         opacity: 0.7;
         margin: 0;
 
@@ -70,7 +68,7 @@
   }
 </style>
 
-<ul>
+<ul style={`color: ${tabsColor}; background: ${mobileBg}`}>
   {#each tabs as tab (tab)}
     <li on:click={() => dispatch('tabChange', tab)}>
       {#if view === 'mobile'}

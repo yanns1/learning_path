@@ -1,7 +1,7 @@
 <script>
   import changeLayoutSvg from "../../../img/change_layout.svg";
   import { db } from "../../../scripts/init_firebase.js";
-  import { userCred, layout } from "../../../scripts/stores.js";
+  import { userCred, layout, darkTheme } from "../../../scripts/stores.js";
   import Button from "../../shared/Button.svelte";
 
   let message = {
@@ -51,7 +51,6 @@
 
 <style lang="scss">
   h4 {
-    color: var(--secondary-color);
     font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
 
@@ -63,7 +62,6 @@
 
   .hint {
     font-size: 0.8rem;
-    color: var(--secondary-color);
     text-align: center;
     margin-bottom: 1rem;
     & > strong {
@@ -102,9 +100,14 @@
   }
 </style>
 
-<h4>Layout</h4>
+<h4
+  style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}>
+  Layout
+</h4>
 <img src={changeLayoutSvg} alt="Layout indications" />
-<div class="hint">
+<div
+  class="hint"
+  style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}>
   <strong>Hint:</strong>
   You can't select a same card multiple times.
 </div>

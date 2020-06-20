@@ -1,11 +1,10 @@
 <script>
-  import plusIconSvg from "../../img/icons/plus_icon.svg";
   import {
     sortItemsFromDb,
     isFalsyArr,
     strToInt
   } from "../../scripts/utils.js";
-  import { layout, items } from "../../scripts/stores.js";
+  import { layout, items, darkTheme, userCred } from "../../scripts/stores.js";
   import Card from "./Card.svelte";
   import Item from "./item/Item.svelte";
   import ItemDialog from "../dialogs/ItemDialog.svelte";
@@ -67,6 +66,12 @@
     margin-bottom: 7rem;
   }
 
+  main.dark {
+    & svg {
+      fill: #f2f2f2;
+    }
+  }
+
   @media (min-width: 600px) {
     .cards-container {
       margin: 0 10%;
@@ -83,13 +88,26 @@
   }
 </style>
 
-<main>
+<main class:dark={$userCred && $darkTheme}>
   <div class="cards-container">
     {#each $layout as cardTitle}
-      <Card>
+      <Card dark={$userCred && $darkTheme}>
         <h3>{cardTitle}</h3>
         <div class="add-item" on:click={() => triggerItemAdd(cardTitle)}>
-          <img class="plus-icon" src={plusIconSvg} alt="Plus icon" />
+          <svg
+            class="plus-icon"
+            role="img"
+            fill="#000000"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512">
+            <title>Plus icon</title>
+            <path
+              d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32
+              32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32
+              32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33
+              32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+          </svg>
           <div class="text">Add item</div>
         </div>
         {#if isFalsyArr($items[cardTitle])}

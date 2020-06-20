@@ -1,6 +1,7 @@
 <script>
   export let styles;
   export let disabled = false;
+  export let darkTheme = false;
 </script>
 
 <style lang="scss">
@@ -38,10 +39,16 @@
       color: #ababab;
       box-shadow: 0 0 0 1px #ababab;
       background-color: #dedede;
+
+      &.darkTheme {
+        color: #576286;
+        box-shadow: 0 0 0 1px #576286;
+        background-color: #2a3042;
+      }
     }
   }
 </style>
 
-<button on:click|self style={styles} {disabled}>
+<button class:darkTheme style={styles} {disabled} on:click|self>
   <slot />
 </button>

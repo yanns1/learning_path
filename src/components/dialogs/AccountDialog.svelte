@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import Dialog from "../shared/Dialog.svelte";
   import { db } from "../../scripts/init_firebase.js";
-  import { userCred } from "../../scripts/stores.js";
+  import { userCred, darkTheme } from "../../scripts/stores.js";
   import Button from "../shared/Button.svelte";
 
   const applyButtonStyles = `
@@ -117,11 +117,11 @@
 
   form {
     display: grid;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
   }
 
   label {
-    color: var(--secondary-color);
     font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
 
@@ -142,15 +142,22 @@
 </style>
 
 <!-- certainly simpler and shorter to do with error messages -->
-<Dialog on:closedDialog>
+<Dialog
+  dialogBg={$userCred && $darkTheme ? '#292C36' : '#ffffff'}
+  on:closedDialog>
   <h3>Account</h3>
 
   <form on:submit|preventDefault={changeEmail}>
-    <label for="email">
+    <label
+      style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}
+      for="email">
       Email
       <input id="email" type="email" bind:value={email} />
     </label>
-    <Button styles={applyButtonStyles} disabled={email === $userCred.email}>
+    <Button
+      styles={applyButtonStyles}
+      disabled={email === $userCred.email}
+      darkTheme={$userCred && $darkTheme}>
       Apply
     </Button>
     {#if updateAccountMess.email.error}
@@ -162,17 +169,30 @@
   </form>
 
   <form on:submit|preventDefault={changePwd}>
-    <label for="pwd">
+    <label
+      style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}
+      for="pwd">
       New password
-      <input id="pwd" type="password" bind:value={pwd} />
+      <input
+        id="pwd"
+        type="password"
+        bind:value={pwd}
+        placeholder="Enter your password..." />
     </label>
-    <label for="confirmed_pwd">
+    <label
+      style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}
+      for="confirmed_pwd">
       Confirm password
-      <input id="confirmed_pwd" type="password" bind:value={confirmed_pwd} />
+      <input
+        id="confirmed_pwd"
+        type="password"
+        bind:value={confirmed_pwd}
+        placeholder="Enter your password..." />
     </label>
     <Button
       styles={applyButtonStyles}
-      disabled={pwd === '' || pwd !== confirmed_pwd}>
+      disabled={pwd === '' || pwd !== confirmed_pwd}
+      darkTheme={$userCred && $darkTheme}>
       Apply
     </Button>
     {#if updateAccountMess.pwd.error}

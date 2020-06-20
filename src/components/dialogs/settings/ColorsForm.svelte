@@ -1,6 +1,10 @@
 <script>
   import { db } from "../../../scripts/init_firebase.js";
-  import { userCred, prioritiesColors } from "../../../scripts/stores.js";
+  import {
+    userCred,
+    prioritiesColors,
+    darkTheme
+  } from "../../../scripts/stores.js";
   import Button from "../../shared/Button.svelte";
 
   let message = {
@@ -54,7 +58,6 @@
 
 <style lang="scss">
   h4 {
-    color: var(--secondary-color);
     font-family: Montserrat-Bold, Montserrat-Regular, sans-serif;
   }
 
@@ -88,7 +91,10 @@
   }
 </style>
 
-<h4>Colors</h4>
+<h4
+  style={$userCred && $darkTheme ? 'color: #F2F2F2' : 'color: var(--secondary-color)'}>
+  Colors
+</h4>
 <form on:submit|preventDefault={changeColors}>
   {#each $prioritiesColors as color, i (i)}
     <div class="color-picker">

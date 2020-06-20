@@ -13,8 +13,6 @@
   }
   $: content = content || "";
   $: priority = priority || updatedFallbackPriority;
-
-  //   Impure
 </script>
 
 <style lang="scss">

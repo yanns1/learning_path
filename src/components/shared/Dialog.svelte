@@ -1,6 +1,8 @@
 <script>
   import { onMount, createEventDispatcher } from "svelte";
 
+  export let dialogBg = "#ffffff";
+
   // Pure
   const dispatch = createEventDispatcher();
 
@@ -33,13 +35,12 @@
     border-radius: 16px;
     max-width: 70vw;
     max-height: 80vh;
-    background-color: #fff;
   }
 </style>
 
 <!-- Infos: if slot is longer than max-height, the content goes over the limits -->
 <div class="overlay" on:click|self={() => dispatch('closedDialog')}>
-  <div class="dialog">
+  <div class="dialog" style={`background: ${dialogBg}`}>
     <slot />
   </div>
 </div>

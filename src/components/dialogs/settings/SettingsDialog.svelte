@@ -2,6 +2,7 @@
   import Dialog from "../../shared/Dialog.svelte";
   import LayoutForm from "./LayoutForm.svelte";
   import ColorsForm from "./ColorsForm.svelte";
+  import { userCred, darkTheme } from "../../../scripts/stores.js";
 </script>
 
 <style lang="scss">
@@ -14,7 +15,9 @@
   }
 </style>
 
-<Dialog on:closedDialog>
+<Dialog
+  dialogBg={$userCred && $darkTheme ? '#292C36' : '#ffffff'}
+  on:closedDialog>
   <h3>Settings</h3>
   <LayoutForm />
   <ColorsForm />

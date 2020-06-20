@@ -29,7 +29,7 @@
         db.collection("users")
           .doc(userCred.user.uid)
           .set({
-            isDark: false,
+            darkTheme: false,
             layout: ["To Learn", "To Revisit", "Learned", "To Not Learn"],
             prioritiesColors: ["#b00b0b", "#c47e0c", "#228708"],
             items: {

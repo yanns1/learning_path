@@ -2,21 +2,28 @@
   import Header from "./header/Header.svelte";
   import Main from "./main/Main.svelte";
   import Footer from "./footer/Footer.svelte";
-  import { userCred } from "../scripts/stores.js";
+  import { userCred, darkTheme } from "../scripts/stores.js";
   import wave from "../img/wave.svg";
   import SignUpDialog from "./dialogs/SignUpDialog.svelte";
   import LogInDialog from "./dialogs/LogInDialog.svelte";
   import Button from "./shared/Button.svelte";
 
-  let dark = false;
   let showSignInDialog = false;
   let showLogInDialog = false;
 
   document.title = "Learning Path";
+
+  $: {
+    if ($userCred && $darkTheme) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }
 </script>
 
 <style lang="scss">
-  img {
+  .wave {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,6 +52,7 @@
   }
 </style>
 
+<!-- Dialogs -->
 {#if showSignInDialog}
   <SignUpDialog on:closedDialog={() => (showSignInDialog = false)} />
 {/if}
@@ -52,8 +60,22 @@
   <LogInDialog on:closedDialog={() => (showLogInDialog = false)} />
 {/if}
 
-<img src={wave} alt="wave background on top of the page" />
-<Header {dark} />
+<!-- wave background -->
+<svg
+  class="wave"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1440 299">
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M0 299l60-14.95c60-14.95 180-44.85 300-54.817 120-9.966 240 0
+    360-14.95s240-54.816 360-44.85c120 9.967 240 69.767 300 99.667l60
+    29.9V0H0v299z"
+    fill={$userCred && $darkTheme ? '#273052' : '#D6DDEE'} />
+</svg>
+
+<Header />
 {#if $userCred}
   <Main />
 {:else}

@@ -1,5 +1,5 @@
 <script>
-
+  import { userCred, darkTheme } from "../../scripts/stores.js";
 </script>
 
 <style lang="scss">
@@ -16,6 +16,10 @@
       grid-template-rows: repeat(2, 1fr);
       grid-gap: 0.5rem;
       background-color: #c4c4c4;
+
+      &.dark {
+        background-color: #292c36;
+      }
     }
 
     a {
@@ -34,7 +38,7 @@
   }
 </style>
 
-<footer>
+<footer class:dark={$userCred && $darkTheme}>
   <div class="github-credit">
     Made with ❤️ by
     <a
