@@ -106,7 +106,7 @@
 <img src={changeLayoutSvg} alt="Layout indications" />
 <div class="hint">
   <strong>Hint:</strong>
-  You cannot select a same card multiple times.
+  You can't select a same card multiple times.
 </div>
 <form on:submit|preventDefault={changeLayout}>
   {#each $layout as card, i (Math.random())}

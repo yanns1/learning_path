@@ -32,6 +32,13 @@
     &:active {
       transform: scale(0.99);
     }
+    &:disabled {
+      cursor: auto;
+      filter: none;
+      color: #ababab;
+      box-shadow: 0 0 0 1px #ababab;
+      background-color: #dedede;
+    }
   }
 </style>
 
