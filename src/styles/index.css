@@ -40,7 +40,7 @@ main {
   flex: 1;
 }
 
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text] {
   cursor: pointer;
   font-family: Montserrat-Regular, sans-serif;
   font-size: 0.8rem;
@@ -57,7 +57,7 @@ input[type=email], input[type=password] {
 select {
   cursor: pointer;
   font-family: Montserrat-Regular, sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   display: inline-block;
   border: 1px solid rgba(118, 118, 118, 0.5);
   border-radius: 16px;
@@ -66,18 +66,17 @@ select {
   transition: all 150ms ease-out;
 }
 
-input[type=email]:hover, input[type=password]:hover, select:hover {
+input[type=email]:hover, input[type=password]:hover, input[type=text]:hover, select:hover {
   border: 1px solid rgba(118, 118, 118, 1);
 }
 
-input[type=email]:focus, input[type=password]:focus, select:focus {
+input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, select:focus {
   outline: none;
   border: 1px solid var(--primary-color);
   color: rgba(118, 118, 118, 1);
-  /* border-radius: 16px; */
 }
 
-body.dark input[type=email], body.dark input[type=password] {
+body.dark input[type=email], body.dark input[type=password], body.dark input[type=text] {
   border: 1px solid rgba(242, 242, 242, 0.5);
   color: rgba(242, 242, 242, 0.5);
   background-color: #2A3042;
@@ -89,11 +88,11 @@ body.dark select {
   background-color: #2A3042;
 }
 
-body.dark input[type=email]:hover, body.dark input[type=password]:hover, body.dark select:hover {
+body.dark input[type=email]:hover, body.dark input[type=password]:hover, body.dark input[type=text]:hover, body.dark select:hover {
   border: 1px solid rgba(242, 242, 242, 1);
 }
 
-body.dark input[type=email]:focus, body.dark input[type=password]:focus, body.dark select:focus {
+body.dark input[type=email]:focus, body.dark input[type=password]:focus, body.dark input[type=text]:focus, body.dark select:focus {
   border: 1px solid var(--primary-color);
   color: rgba(242, 242, 242, 1);
 }
